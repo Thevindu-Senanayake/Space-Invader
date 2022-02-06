@@ -1,3 +1,4 @@
+from turtle import speed
 import pygame
 
 # Initialize pygame
@@ -23,6 +24,7 @@ playerX_change = 0
 def player(x, y):
 	screen.blit(playerImg, (x, y))
 
+movement_speed = 0.3
 
 # Loop until the user clicks the close button.
 done = False
@@ -30,13 +32,23 @@ while done == False:
 
 	# Set the screen background and update the screen
 	screen.fill((0, 0, 0))
-	playerY -= 0.1
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			done = True
 
+		# If keystroke is pressed check whether right or left
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_LEFT:
+				playerX_change = -movement_speed
+			if event.key == pygame.K_RIGHT:
+				playerX_change = movement_speed
+		if event.type == pygame.KEYUP:
+			if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+				playerX_change = 0
+
 	#  All drawing code happens after the for loop and but
 	#  inside the main while done == False loop.
 
+	playerX += playerX_change
 	player(playerX, playerY)
 	pygame.display.update()
