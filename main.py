@@ -24,7 +24,7 @@ playerX_change = 0
 def player(x, y):
 	screen.blit(playerImg, (x, y))
 
-movement_speed = 0.3
+movement_speed = 1
 
 # Loop until the user clicks the close button.
 done = False
@@ -50,5 +50,12 @@ while done == False:
 	#  inside the main while done == False loop.
 
 	playerX += playerX_change
+
+	# set boundaries for player
+	if playerX <= 0:
+		playerX = 0
+	elif playerX >= 736:
+		playerX = 736
+
 	player(playerX, playerY)
 	pygame.display.update()
