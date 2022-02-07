@@ -8,6 +8,9 @@ pygame.init()
 size = (800, 600)
 screen = pygame.display.set_mode(size)
 
+# Background Image
+background_image = pygame.image.load("background.png")
+
 # Set title of screen
 pygame.display.set_caption("Space Invaders")
 
@@ -25,7 +28,8 @@ playerX_change = 0
 enemyImg = pygame.image.load("ufo.png")
 enemyX = random.randint(0, 735)
 enemyY = random.randint(50, 150)
-enemyX_change = 0
+enemyX_change = 4
+enemyY_change = 40
 
 def player(x, y):
 	screen.blit(playerImg, (x, y))
@@ -33,7 +37,7 @@ def player(x, y):
 def enemy(x, y):
 	screen.blit(enemyImg, (x, y))
 
-movement_speed = 1
+movement_speed = 5
 
 # Loop until the user clicks the close button.
 done = False
@@ -41,6 +45,9 @@ while done == False:
 
 	# Set the screen background and update the screen
 	screen.fill((0, 0, 0))
+
+	# Set background color
+	screen.blit(background_image, [0, 0])
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			done = True
@@ -58,6 +65,7 @@ while done == False:
 	#  All drawing code happens after the for loop and but
 	#  inside the main while done == False loop.
 
+	#  Move the player
 	playerX += playerX_change
 
 	# set boundaries for player
@@ -65,6 +73,17 @@ while done == False:
 		playerX = 0
 	elif playerX >= 736:
 		playerX = 736
+
+	# Move the enemy
+	enemyX += enemyX_change
+
+	# set boundaries for enemy
+	if enemyX <= 0:
+		enemyX_change = 4
+		enemyY += enemyY_change
+	elif enemyX >= 736:
+		enemyX_change = -4
+		enemyY += enemyY_change
 
 	player(playerX, playerY)
 	enemy(enemyX, enemyY)
