@@ -50,6 +50,17 @@ bulletY_change = 40
 # Fire - The bullet is currently moving
 bullet_state = "ready"
 
+# Score
+score_value = 0
+font = pygame.font.Font("freesansbold.ttf", 32)
+
+textX = 10
+textY = 10
+
+def show_score(x, y):
+	score = font.render("Score :" + str(score_value), True, (255, 255, 255))
+	screen.blit(score, (x, y))
+
 def player(x, y):
 	screen.blit(playerImg, (x, y))
 
@@ -69,7 +80,6 @@ def fire_enemy(enemyX, enemyY, bulletX, bulletY):
 		return False
 
 movement_speed = 5
-score = 0
 
 # Loop until the user clicks the close button.
 done = False
@@ -128,8 +138,7 @@ while done == False:
 		if isFired:
 			bulletY = 480
 			bullet_state = "ready"
-			score += 1
-			print("Score: " + str(score))
+			score_value += 1
 			enemyX[i] = random.randint(0, 735)
 			enemyY[i] = random.randint(50, 150)
 
@@ -147,4 +156,5 @@ while done == False:
 		bulletY -= bulletY_change
 
 	player(playerX, playerY)
+	show_score(textX, textY)
 	pygame.display.update()
