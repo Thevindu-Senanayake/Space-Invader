@@ -130,7 +130,16 @@ while done == False:
 		playerX = 736
 
 	for i in range(num_of_enemies):
-	# Move the enemy
+
+		# Game Over
+		if enemyY[i] > 440:
+			for j in range(num_of_enemies):
+				enemyY[j] = 2000
+			game_over_text = font.render("GAME OVER", True, (255, 255, 255))
+			screen.blit(game_over_text, (200, 250))
+			break
+
+		# Move the enemy
 		enemyX[i] += enemyX_change[i]
 
 		# set boundaries for enemy
